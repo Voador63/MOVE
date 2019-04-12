@@ -1,5 +1,6 @@
 package com.example.move;
 
+import android.os.Debug;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -24,6 +25,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAB = "MainActivity";
+    private static final String LA = "AH";
+
 
     private SectionsPageAdapter mSectionsPageAdapter;
 
@@ -50,5 +53,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Tab2Fragment(), getResources().getString(R.string.fragment2));
         adapter.addFragment(new Tab3Fragment(), getResources().getString(R.string.fragment3));
         viewPager.setAdapter(adapter);
+
     }
 }
