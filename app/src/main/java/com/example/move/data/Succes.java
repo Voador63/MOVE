@@ -4,6 +4,7 @@ import com.orm.SugarRecord;
 
 public class Succes extends SugarRecord {
 
+    private int id_succes;
     private String nom;
     private String description;
     private boolean etat;
@@ -12,11 +13,20 @@ public class Succes extends SugarRecord {
     public Succes(){
     }
 
-    public Succes(String nom, String description, boolean etat){
+    public Succes(int id_succes, String nom, String description, boolean etat){
 
+        setId_succes(id_succes);
         setNom(nom);
         setDescription(description);
         setEtat(etat);
+    }
+
+    public void setId_succes(int id_succes) {
+        this.id_succes = id_succes;
+    }
+
+    public int getId_succes() {
+        return id_succes;
     }
 
     public void setNom(String nom){
@@ -42,4 +52,6 @@ public class Succes extends SugarRecord {
     public boolean getEtat(){
         return this.etat;
     }
+
+
 }
