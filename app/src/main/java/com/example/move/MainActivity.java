@@ -25,7 +25,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAB = "MainActivity";
-    private static final String LA = "OH";
+    private static final String LA = "AH";
 
 
     private SectionsPageAdapter mSectionsPageAdapter;
