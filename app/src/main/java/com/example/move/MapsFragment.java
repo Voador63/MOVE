@@ -128,6 +128,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         if(ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             Toast.makeText(getActivity().getApplicationContext(),"Permission non accordée", Toast.LENGTH_SHORT).show();
+        }
+        else{
             mMap.setMyLocationEnabled(true);
         }
 
