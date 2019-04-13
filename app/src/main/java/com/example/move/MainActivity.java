@@ -22,20 +22,49 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.move.data.Succes;
+import com.example.move.data.SuccesDAO;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAB = "MainActivity";
     private static final String LA = "AH";
+
+    private static final int nb_succes = 1;
 
 
     private SectionsPageAdapter mSectionsPageAdapter;
 
     private ViewPager mViewPager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Succes.deleteAll(Succes.class);
+
+        String[] t_succes = getResources().getStringArray(R.array.succes1);
+
+        int id = Integer.parseInt(t_succes[0]);
+        String titre = t_succes[1];
+        String description = t_succes[2];
+
+        Succes succes = new Succes(id,titre,description,false);
+        if(!SuccesDAO.dejaPresent(titre)){
+            succes.save();
+        }
+
+       /* for(int i=0; i<nb_succes; i++){
+            //String name_succes = "succes"+Integer.toString(i);
+
+        }*/
+
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 

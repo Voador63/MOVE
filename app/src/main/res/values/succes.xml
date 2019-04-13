@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+    <string-array name="succes1">
+        <item>1</item>
+        <item>Succes01</item>
+        <item>TEST!!!</item>
+    </string-array>
+
+</resources>

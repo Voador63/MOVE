@@ -13,12 +13,16 @@ import android.widget.ListView;
 
 import com.example.move.CustomAdapter;
 import com.example.move.SuccessDataModel;
+import com.example.move.data.Succes;
+import com.example.move.data.SuccesDAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tab3Fragment extends Fragment {
 
     ArrayList<SuccessDataModel> dataModels;
+    //List<Succes> dataModels;
     ListView listView;
     private static CustomAdapter adapter;
 
@@ -33,8 +37,15 @@ public class Tab3Fragment extends Fragment {
         listView=(ListView)view.findViewById(R.id.list);
 
         dataModels= new ArrayList<>();
-
-        dataModels.add(new SuccessDataModel("Apple Pie", "Android 1.0", "1","September 23, 2008"));
+        List<Succes> lst_succes = SuccesDAO.selectAll();
+        for(int i=0; i<SuccesDAO.getNbSucces(); i++){
+            int id = lst_succes.get(i).getId_succes();
+            String titre = lst_succes.get(i).getNom();
+            String description = lst_succes.get(i).getDescription();
+            Boolean etat = lst_succes.get(i).getEtat();
+            dataModels.add(new SuccessDataModel(titre, "Android 1.0", Integer.toString(id), description));
+        }
+        /*dataModels.add(new SuccessDataModel("Apple Pie", "Android 1.0", "1","September 23, 2008"));
         dataModels.add(new SuccessDataModel("Banana Bread", "Android 1.1", "2","February 9, 2009"));
         dataModels.add(new SuccessDataModel("Cupcake", "Android 1.5", "3","April 27, 2009"));
         dataModels.add(new SuccessDataModel("Donut","Android 1.6","4","September 15, 2009"));
@@ -46,7 +57,7 @@ public class Tab3Fragment extends Fragment {
         dataModels.add(new SuccessDataModel("Jelly Bean", "Android 4.2", "16","July 9, 2012"));
         dataModels.add(new SuccessDataModel("Kitkat", "Android 4.4", "19","October 31, 2013"));
         dataModels.add(new SuccessDataModel("Lollipop","Android 5.0","21","November 12, 2014"));
-        dataModels.add(new SuccessDataModel("Marshmallow", "Android 6.0", "23","October 5, 2015"));
+        dataModels.add(new SuccessDataModel("Marshmallow", "Android 6.0", "23","October 5, 2015"));*/
 
         adapter= new CustomAdapter(dataModels,getActivity().getApplicationContext());
 
