@@ -39,6 +39,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     float lowSpeed;
     float highSpeed;
     int lineColor;
+    GPStracker gpsTracker;
 
     public MapsFragment(){}
 
@@ -66,7 +67,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         btnGetPos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GPStracker gpsTracker = new GPStracker(getActivity().getApplicationContext());
+                if (gpsTracker == null) {
+                    gpsTracker = new GPStracker(getActivity().getApplicationContext());
+                }
                 loc = gpsTracker.getLocation();
                 if(loc != null){
                     altitude = loc.getAltitude();
@@ -100,7 +103,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     } else if (lastLoc == null && loc != null){ // Cas juste loc initialise
                         userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
                         mMap.addMarker(new MarkerOptions().position(userPos).title("Point de départ"));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(userPos));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 17) );
                     }
                     lastLoc = loc;
                     lastUserPos = userPos;
@@ -131,6 +134,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         }
         else{
             mMap.setMyLocationEnabled(true);
+            gpsTracker = new GPStracker(getActivity().getApplicationContext());
+            loc = gpsTracker.getLocation();
+            userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 17) );
         }
 
     }
