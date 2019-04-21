@@ -1,10 +1,13 @@
 package com.example.move;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.move.data.Succes;
 import com.example.move.data.SuccesDAO;
@@ -64,6 +67,32 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Tab2Fragment(), getResources().getString(R.string.fragment2));
         adapter.addFragment(new Tab3Fragment(), getResources().getString(R.string.fragment3));
         viewPager.setAdapter(adapter);
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.share_button:
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Your Body Here";
+                String shareSubject = "Subject";
+
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+                startActivity(Intent.createChooser(sharingIntent, "Share Using"));
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
