@@ -4,7 +4,19 @@
     <string-array name="succes1">
         <item>1</item>
         <item>Succes01</item>
-        <item>TEST!!!</item>
+        <item>Ce succes se fait de cette maniere.</item>
+    </string-array>
+
+    <string-array name="succes2">
+        <item>2</item>
+        <item>Succes02</item>
+        <item>Ce succes se fait de cette maniere.</item>
+    </string-array>
+
+    <string-array name="succes3">
+        <item>3</item>
+        <item>Succes03</item>
+        <item>Ce SUCCES se fait de cette maniere.</item>
     </string-array>
 
 </resources>

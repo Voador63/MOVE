@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAB = "MainActivity";
     private static final String LA = "AH";
 
-    private static final int nb_succes = 1;
+    private static final int nb_succes = 3;
 
 
     private SectionsPageAdapter mSectionsPageAdapter;
@@ -29,24 +29,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Succes.deleteAll(Succes.class);
+        Succes.deleteAll(Succes.class);
 
-        String[] t_succes = getResources().getStringArray(R.array.succes1);
+        String[] t_succes;
+        int idSucces;
+        int idArray;
+        String titreSucces;
+        String descritptionSucces;
 
-        int id = Integer.parseInt(t_succes[0]);
-        String titre = t_succes[1];
-        String description = t_succes[2];
+        for(int i=0; i<nb_succes; i++){
 
-        Succes succes = new Succes(id,titre,description,false);
-        if(!SuccesDAO.dejaPresent(titre)){
-            succes.save();
+            int noSucces = i+1;
+            idArray = this.getResources().
+                    getIdentifier("succes"+noSucces, "array", this.getPackageName());
+            t_succes = getResources().getStringArray(idArray);
+
+            idSucces = Integer.parseInt(t_succes[0]);
+            titreSucces = t_succes[1];
+            descritptionSucces = t_succes[2];
+
+            Succes succes = new Succes(idSucces,titreSucces,descritptionSucces,false);
+
+            if(!SuccesDAO.dejaPresent(titreSucces)){
+                succes.save();
+            }
         }
-
-       /* for(int i=0; i<nb_succes; i++){
-            //String name_succes = "succes"+Integer.toString(i);
-
-        }*/
-
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 

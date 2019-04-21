@@ -37,13 +37,13 @@ public class Tab3Fragment extends Fragment {
         listView=(ListView)view.findViewById(R.id.list);
 
         dataModels= new ArrayList<>();
-        List<Succes> lst_succes = SuccesDAO.selectAll();
+        List<Succes> list_succes = SuccesDAO.selectAll();
         for(int i=0; i<SuccesDAO.getNbSucces(); i++){
-            int id = lst_succes.get(i).getId_succes();
-            String titre = lst_succes.get(i).getNom();
-            String description = lst_succes.get(i).getDescription();
-            Boolean etat = lst_succes.get(i).getEtat();
-            dataModels.add(new SuccessDataModel(titre, "Android 1.0", Integer.toString(id), description));
+            int id = list_succes.get(i).getId_succes();
+            String nom = list_succes.get(i).getNom();
+            String description = list_succes.get(i).getDescription();
+            Boolean etat = list_succes.get(i).getEtat();
+            dataModels.add(new SuccessDataModel(id, nom, description, etat));
         }
         /*dataModels.add(new SuccessDataModel("Apple Pie", "Android 1.0", "1","September 23, 2008"));
         dataModels.add(new SuccessDataModel("Banana Bread", "Android 1.1", "2","February 9, 2009"));
@@ -68,7 +68,7 @@ public class Tab3Fragment extends Fragment {
 
                 SuccessDataModel dataModel= dataModels.get(position);
 
-                Snackbar.make(view, dataModel.getName()+"\n"+dataModel.getType()+" API: "+dataModel.getVersion_number(), Snackbar.LENGTH_LONG)
+                Snackbar.make(view, dataModel.getId()+"\n"+dataModel.getNom()+" Description: "+dataModel.getDescription(), Snackbar.LENGTH_LONG)
                         .setAction("No action", null).show();
             }
         });
