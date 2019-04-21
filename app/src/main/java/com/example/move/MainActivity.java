@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Tab1Fragment(), getResources().getString(R.string.fragment1));
+        adapter.addFragment(new MapsFragment(), getResources().getString(R.string.fragment1));
         adapter.addFragment(new Tab2Fragment(), getResources().getString(R.string.fragment2));
         adapter.addFragment(new Tab3Fragment(), getResources().getString(R.string.fragment3));
         viewPager.setAdapter(adapter);

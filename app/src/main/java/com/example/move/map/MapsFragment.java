@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.move.R;
+import com.example.move.data.Point;
+import com.example.move.data.PointDAO;
+import com.example.move.data.Trajet;
+import com.example.move.data.TrajetDAO;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,6 +29,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +51,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     float highSpeed;
     int lineColor;
     GPStracker gpsTracker;
+    Trajet trajet;
+    int id_trajet;
 
     boolean recording;
     private Timer timer;
@@ -68,6 +77,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         lastSpeed = 0;
         speed = 0;
 
+        id_trajet = TrajetDAO.getLastId();
+        Log.i("monLOG", String.valueOf(id_trajet));
+
         lowSpeed = 0;
         highSpeed = 15;
 
@@ -79,6 +91,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View view) {
                 if(!recording){
+                    id_trajet++;
                     startRecordTimer();
                     recording = true;
                     btnGetPos.setText(getString(R.string.stopPosbutton));
@@ -132,6 +145,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             speed = loc.getSpeed() * 3.6;
 
             //Toast.makeText(getActivity().getApplicationContext(),"ALT : " + altitude + "\nLAT : " + latitude + "\nLNG : " + longitude + "\nSPD : " + speed, Toast.LENGTH_LONG).show();
+
+            Point point = new Point(id_trajet, altitude, latitude, longitude, speed, lastSpeed);
+            point.save();
+
+            Log.i("monLOG", String.valueOf(PointDAO.getNbPoint()-1));
+            Log.i("monLOG", String.valueOf(PointDAO.selectAll().get(PointDAO.getNbPoint()-1).getAltitude()));
 
             if(lastLoc != null && loc.getTime() != lastLoc.getTime()) { // Cas lastLoc et loc initialises
                 userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
