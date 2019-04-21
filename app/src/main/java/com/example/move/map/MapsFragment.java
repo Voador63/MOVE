@@ -186,10 +186,5 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 17) );
         }
-
-    }
-
-
-    private class Handler {
     }
 }
