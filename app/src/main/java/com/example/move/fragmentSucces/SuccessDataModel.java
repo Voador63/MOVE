@@ -1,4 +1,4 @@
-package com.example.move;
+package com.example.move.fragmentSucces;
 
 public class SuccessDataModel {
     int id_succes;

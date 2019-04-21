@@ -1,4 +1,4 @@
-package com.example.move;
+package com.example.move.fragmentSucces;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

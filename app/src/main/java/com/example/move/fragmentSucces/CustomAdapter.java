@@ -1,4 +1,4 @@
-package com.example.move;
+package com.example.move.fragmentSucces;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.move.R;
+
 import java.util.ArrayList;
 
 public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements View.OnClickListener{
@@ -22,7 +24,6 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
         private static class ViewHolder {
             TextView txtNom;
             TextView txtDescription;
-            TextView txtId;
             ImageView info;
         }
 
@@ -30,7 +31,6 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             super(context, R.layout.row_item, data);
             this.dataSet = data;
             this.mContext=context;
-
         }
 
         @Override
@@ -43,7 +43,7 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             //switch (v.getId())
             //{
             //    case R.id.item_info:
-            //        Snackbar.make(v, "Release date " +dataModel.getFeature(), Snackbar.LENGTH_LONG)
+            //        Snackbar.make(v, "", Snackbar.LENGTH_LONG)
             //                .setAction("No action", null).show();
             //        break;
             //}
@@ -66,8 +66,7 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.row_item, parent, false);
                 viewHolder.txtNom = (TextView) convertView.findViewById(R.id.name);
-                viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.type);
-                viewHolder.txtId = (TextView) convertView.findViewById(R.id.version_number);
+                viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.descript);
                 viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
                 result=convertView;
@@ -84,7 +83,6 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
 
             viewHolder.txtNom.setText(dataModel.getNom());
             viewHolder.txtDescription.setText(dataModel.getDescription());
-            viewHolder.txtId.setText((Integer.toString(dataModel.getId())));
             viewHolder.info.setOnClickListener(this);
             viewHolder.info.setTag(position);
             // Return the completed view to render on screen
