@@ -22,6 +22,7 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
 
         // View lookup cache
         private static class ViewHolder {
+            ImageView image;
             TextView txtNom;
             TextView txtDescription;
             ImageView info;
@@ -65,6 +66,7 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.row_item, parent, false);
+                viewHolder.image = (ImageView) convertView.findViewById(R.id.item_image);
                 viewHolder.txtNom = (TextView) convertView.findViewById(R.id.name);
                 viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.descript);
                 viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
@@ -81,9 +83,10 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             result.startAnimation(animation);
             lastPosition = position;
 
+            viewHolder.image.setTag(position);
             viewHolder.txtNom.setText(dataModel.getNom());
             viewHolder.txtDescription.setText(dataModel.getDescription());
-            viewHolder.info.setOnClickListener(this);
+            //viewHolder.info.setOnClickListener(this);
             viewHolder.info.setTag(position);
             // Return the completed view to render on screen
             return convertView;

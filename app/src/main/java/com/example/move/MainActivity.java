@@ -11,6 +11,7 @@ import com.example.move.data.SuccesDAO;
 import com.example.move.fragmentSucces.SectionsPageAdapter;
 import com.example.move.fragmentSucces.Tab3Fragment;
 import com.example.move.map.MapsFragment;
+import com.example.move.statsFragment.Tab2Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
