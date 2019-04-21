@@ -1,18 +1,17 @@
-package com.example.move;
+package com.example.move.fragmentSucces;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.move.CustomAdapter;
-import com.example.move.SuccessDataModel;
+import com.example.move.R;
 import com.example.move.data.Succes;
 import com.example.move.data.SuccesDAO;
 
@@ -68,8 +67,16 @@ public class Tab3Fragment extends Fragment {
 
                 SuccessDataModel dataModel= dataModels.get(position);
 
-                Snackbar.make(view, dataModel.getId()+"\n"+dataModel.getNom()+" Description: "+dataModel.getDescription(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
+                TextView description = (TextView) view.findViewById(R.id.descript);
+
+                if (description.getVisibility() == View.GONE)
+                    description.setVisibility(View.VISIBLE);
+
+                else if (description.getVisibility() == View.VISIBLE)
+                    description.setVisibility(View.GONE);
+
+                //Snackbar.make(view, dataModel.getId()+"\n"+dataModel.getNom()+" Description: "+dataModel.getDescription(), Snackbar.LENGTH_LONG)
+                //        .setAction("No action", null).show();
             }
         });
 

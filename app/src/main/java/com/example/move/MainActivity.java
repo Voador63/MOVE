@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.example.move.data.Succes;
 import com.example.move.data.SuccesDAO;
+import com.example.move.fragmentSucces.SectionsPageAdapter;
+import com.example.move.fragmentSucces.Tab3Fragment;
 import com.example.move.map.MapsFragment;
 
 public class MainActivity extends AppCompatActivity {
