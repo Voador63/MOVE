@@ -28,7 +28,7 @@ public class GPStracker implements LocationListener {
             Criteria critProvider = new Criteria();
             critProvider.setAccuracy(Criteria.ACCURACY_FINE);
             String provider = lm.getBestProvider(critProvider, true);
-            lm.requestLocationUpdates(provider,10000,100,this);
+            lm.requestLocationUpdates(provider,1000,10,this);
             Location loc = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             return loc;
         }else{
