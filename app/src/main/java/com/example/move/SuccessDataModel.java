@@ -1,26 +1,27 @@
 package com.example.move;
 
 public class SuccessDataModel {
-    String name;
-    String type;
-    String version_number;
-    String feature;
-    public SuccessDataModel(String name, String type, String version_number, String feature ) {
-        this.name=name;
-        this.type=type;
-        this.version_number=version_number;
-        this.feature=feature;
+    int id_succes;
+    String nom_succes;
+    String description_succes;
+    boolean etat_succes;
+
+    public SuccessDataModel(int id, String nom, String description, boolean etat ) {
+        this.id_succes=id;
+        this.nom_succes=nom;
+        this.description_succes=description;
+        this.etat_succes=etat;
     }
-    public String getName() {
-        return name;
+    public int getId() {
+        return id_succes;
     }
-    public String getType() {
-        return type;
+    public String getNom() {
+        return nom_succes;
     }
-    public String getVersion_number() {
-        return version_number;
+    public String getDescription() {
+        return description_succes;
     }
-    public String getFeature() {
-        return feature;
+    public Boolean getEtat() {
+        return etat_succes;
     }
 }

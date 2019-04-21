@@ -20,9 +20,9 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
 
         // View lookup cache
         private static class ViewHolder {
-            TextView txtName;
-            TextView txtType;
-            TextView txtVersion;
+            TextView txtNom;
+            TextView txtDescription;
+            TextView txtId;
             ImageView info;
         }
 
@@ -40,13 +40,13 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             Object object= getItem(position);
             SuccessDataModel dataModel=(SuccessDataModel)object;
 
-            switch (v.getId())
-            {
-                case R.id.item_info:
-                    Snackbar.make(v, "Release date " +dataModel.getFeature(), Snackbar.LENGTH_LONG)
-                            .setAction("No action", null).show();
-                    break;
-            }
+            //switch (v.getId())
+            //{
+            //    case R.id.item_info:
+            //        Snackbar.make(v, "Release date " +dataModel.getFeature(), Snackbar.LENGTH_LONG)
+            //                .setAction("No action", null).show();
+            //        break;
+            //}
         }
 
         private int lastPosition = -1;
@@ -65,9 +65,9 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
                 viewHolder = new ViewHolder();
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(R.layout.row_item, parent, false);
-                viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
-                viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
-                viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.version_number);
+                viewHolder.txtNom = (TextView) convertView.findViewById(R.id.name);
+                viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.type);
+                viewHolder.txtId = (TextView) convertView.findViewById(R.id.version_number);
                 viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
                 result=convertView;
@@ -82,9 +82,9 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             result.startAnimation(animation);
             lastPosition = position;
 
-            viewHolder.txtName.setText(dataModel.getName());
-            viewHolder.txtType.setText(dataModel.getType());
-            viewHolder.txtVersion.setText(dataModel.getVersion_number());
+            viewHolder.txtNom.setText(dataModel.getNom());
+            viewHolder.txtDescription.setText(dataModel.getDescription());
+            viewHolder.txtId.setText((Integer.toString(dataModel.getId())));
             viewHolder.info.setOnClickListener(this);
             viewHolder.info.setTag(position);
             // Return the completed view to render on screen

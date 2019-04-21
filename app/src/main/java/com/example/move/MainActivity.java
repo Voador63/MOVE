@@ -11,25 +11,13 @@ import android.util.Log;
 
 import com.example.move.data.Succes;
 import com.example.move.data.SuccesDAO;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import com.example.move.map.MapsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAB = "MainActivity";
 
-    //private static final int nb_succes = 1;
+    private static final int nb_succes = 3;
 
 
     private SectionsPageAdapter mSectionsPageAdapter;
@@ -43,9 +31,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Succes.deleteAll(Succes.class);
 
-        setSuccesBD();
+        String[] t_succes;
+        int idSucces;
+        int idArray;
+        String titreSucces;
+        String descritptionSucces;
 
+        for(int i=0; i<nb_succes; i++){
+
+            int noSucces = i+1;
+            idArray = this.getResources().
+                    getIdentifier("succes"+noSucces, "array", this.getPackageName());
+            t_succes = getResources().getStringArray(idArray);
+
+            idSucces = Integer.parseInt(t_succes[0]);
+            titreSucces = t_succes[1];
+            descritptionSucces = t_succes[2];
+
+            Succes succes = new Succes(idSucces,titreSucces,descritptionSucces,false);
+
+            if(!SuccesDAO.dejaPresent(titreSucces)){
+                succes.save();
+            }
+        }
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 

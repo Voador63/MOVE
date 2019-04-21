@@ -1,4 +1,4 @@
-package com.example.move;
+package com.example.move.map;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.move.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,6 +23,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
@@ -40,6 +44,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     float highSpeed;
     int lineColor;
     GPStracker gpsTracker;
+
+    boolean recording;
+    private Timer timer;
+    private TimerTask recordTask;
 
     public MapsFragment(){}
 
@@ -61,60 +69,99 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         speed = 0;
 
         lowSpeed = 0;
-        highSpeed = 50;
+        highSpeed = 15;
+
+        recording = false;
+        timer = new Timer();
 
         btnGetPos = (Button) view.findViewById(R.id.btnGetPos);
         btnGetPos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (gpsTracker == null) {
-                    gpsTracker = new GPStracker(getActivity().getApplicationContext());
-                }
-                loc = gpsTracker.getLocation();
-                if(loc != null){
-                    altitude = loc.getAltitude();
-                    latitude = loc.getLatitude();
-                    longitude = loc.getLongitude();
-                    lastSpeed = speed;
-                    speed = loc.getSpeed() * 3.6;
-
-                    Toast.makeText(getActivity().getApplicationContext(),"ALT : " + altitude + "\nLAT : " + latitude + "\nLNG : " + longitude + "\nSPD : " + speed, Toast.LENGTH_LONG).show();
-
-                    if(lastLoc != null && loc.getTime() != lastLoc.getTime()) { // Cas lastLoc et loc initialises
-                        userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
-                        //mMap.addMarker(new MarkerOptions().position(userPos).title("User pos"));
-                        //mMap.moveCamera(CameraUpdateFactory.newLatLng(userPos));
-
-                        if (lastUserPos != null) {
-                            double evgSpeed = (lastSpeed + speed) / 2;
-
-                            if (evgSpeed <= (highSpeed - lowSpeed) / 3 + lowSpeed){ lineColor = Color.GREEN; }
-                            else if (evgSpeed >= ((highSpeed - lowSpeed) / (3/2) + lowSpeed)){ lineColor = Color.RED; }
-                            else { lineColor = Color.YELLOW; }
-                            mMap.addPolyline(
-                                    new PolylineOptions()
-                                            .add(userPos)
-                                            .add(lastUserPos)
-                                            .width(8f)
-                                            .color(lineColor)
-                            );
-                        }
-
-                    } else if (lastLoc == null && loc != null){ // Cas juste loc initialise
-                        userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(userPos).title("Point de départ"));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 17) );
-                    }
-                    lastLoc = loc;
-                    lastUserPos = userPos;
-                    //Toast.makeText(getApplicationContext(), loc.getProvider(), Toast.LENGTH_LONG).show();
+                if(!recording){
+                    startRecordTimer();
+                    recording = true;
+                    btnGetPos.setText(getString(R.string.stopPosbutton));
+                    Toast.makeText(getActivity().getApplicationContext(),"RECORDING", Toast.LENGTH_LONG).show();
+                } else {
+                    stopRecordTimer();
+                    recording = false;
+                    btnGetPos.setText(getString(R.string.posbutton));
+                    Toast.makeText(getActivity().getApplicationContext(),"NOT RECORDING", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    //To stop timer
+    private void stopRecordTimer(){
+        if(timer != null){
+            timer.cancel();
+            timer.purge();
+        }
+    }
+
+    //To start timer
+    private void startRecordTimer(){
+        timer = new Timer();
+        recordTask = new TimerTask() {
+            public void run() {
+                btnGetPos.post(new Runnable() {
+                    public void run(){
+                        recordNewPoint();
+                    }
+                });
+            }
+        };
+        timer.schedule(recordTask, 0, 1000);
+    }
+
+    public void recordNewPoint(){
+        if (gpsTracker == null) {
+            gpsTracker = new GPStracker(getActivity().getApplicationContext());
+        }
+        loc = gpsTracker.getLocation();
+        if(loc != null){
+            altitude = loc.getAltitude();
+            latitude = loc.getLatitude();
+            longitude = loc.getLongitude();
+            lastSpeed = speed;
+            speed = loc.getSpeed() * 3.6;
+
+            //Toast.makeText(getActivity().getApplicationContext(),"ALT : " + altitude + "\nLAT : " + latitude + "\nLNG : " + longitude + "\nSPD : " + speed, Toast.LENGTH_LONG).show();
+
+            if(lastLoc != null && loc.getTime() != lastLoc.getTime()) { // Cas lastLoc et loc initialises
+                userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
+                //mMap.addMarker(new MarkerOptions().position(userPos).title("User pos"));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(userPos));
+
+                if (lastUserPos != null) {
+                    double evgSpeed = (lastSpeed + speed) / 2;
+
+                    if (evgSpeed <= (highSpeed - lowSpeed) / 3 + lowSpeed){ lineColor = Color.GREEN; }
+                    else if (evgSpeed >= ((highSpeed - lowSpeed) / (3/2) + lowSpeed)){ lineColor = Color.RED; }
+                    else { lineColor = Color.YELLOW; }
+                    mMap.addPolyline(
+                            new PolylineOptions()
+                                    .add(userPos)
+                                    .add(lastUserPos)
+                                    .width(8f)
+                                    .color(lineColor)
+                    );
+                }
+
+            } else if (lastLoc == null && loc != null){ // Cas juste loc initialise
+                userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(userPos).title("Point de départ"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 17) );
+            }
+            lastLoc = loc;
+            lastUserPos = userPos;
+            //Toast.makeText(getApplicationContext(), loc.getProvider(), Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
@@ -139,6 +186,5 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 17) );
         }
-
     }
 }
