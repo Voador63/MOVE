@@ -10,5 +10,6 @@
     <string name="succes3">Succès 3</string>
     <string name="button">…</string>
     <string name="title_activity_maps">Map</string>
-    <string name="posbutton">Afficher position</string>
+    <string name="posbutton">Start record</string>
+    <string name="stopPosbutton">Stop record</string>
 </resources>
