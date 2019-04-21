@@ -1,4 +1,4 @@
-package com.example.move;
+package com.example.move.map;
 
 import android.Manifest;
 import android.content.Context;

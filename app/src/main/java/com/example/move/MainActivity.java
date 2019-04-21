@@ -8,9 +8,7 @@ import android.os.Bundle;
 
 import com.example.move.data.Succes;
 import com.example.move.data.SuccesDAO;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.move.map.MapsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
