@@ -3,20 +3,20 @@
 <resources>
     <string-array name="succes1">
         <item>1</item>
-        <item>Succes 1</item>
-        <item>Ce succes se fait de cette maniere.</item>
+        <item>Promeneur débutant</item>
+        <item>Parcourir une distance de 10m.</item>
     </string-array>
 
     <string-array name="succes2">
         <item>2</item>
-        <item>Succes 2</item>
-        <item>Ce succes se fait de cette maniere.</item>
+        <item>Alpiniste en devenir</item>
+        <item>Monter un dénivelé de 10m.</item>
     </string-array>
 
     <string-array name="succes3">
         <item>3</item>
-        <item>Succes 3</item>
-        <item>Ce SUCCES se fait de cette maniere.</item>
+        <item>Coureur débutant</item>
+        <item>Atteindre une vitesse de 15km/h.</item>
     </string-array>
 
 </resources>

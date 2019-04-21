@@ -12,4 +12,8 @@
     <string name="title_activity_maps">Map</string>
     <string name="posbutton">Start record</string>
     <string name="stopPosbutton">Stop record</string>
+    <string name="titleDistance">Distance totale : </string>
+    <string name="titleVitesse">Vitesse maximale : </string>
+    <string name="titleDenivPos">Dénivelé positif : </string>
+    <string name="titleDenivNeg">Dénivelé négatif : </string>
 </resources>
