@@ -95,5 +95,4 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             // Return the completed view to render on screen
             return convertView;
         }
-
 }
