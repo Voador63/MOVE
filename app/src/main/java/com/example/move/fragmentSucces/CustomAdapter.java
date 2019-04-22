@@ -1,6 +1,7 @@
 package com.example.move.fragmentSucces;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,6 +89,9 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             viewHolder.txtDescription.setText(dataModel.getDescription());
             //viewHolder.info.setOnClickListener(this);
             viewHolder.info.setTag(position);
+
+            if(dataModel.getEtat())
+                convertView.setBackground(this.getContext().getDrawable(R.color.colorPrimary));
             // Return the completed view to render on screen
             return convertView;
         }
