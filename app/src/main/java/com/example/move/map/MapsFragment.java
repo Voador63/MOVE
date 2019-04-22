@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.move.MainActivity;
 import com.example.move.R;
 import com.example.move.data.Point;
 import com.example.move.data.StatsDAO;
@@ -203,7 +204,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     //Log.i("MONLOG", String.valueOf(deniveleDescPortion));
 
                     StatsDAO.setStats(distancePortion, vitesseMaxTrajet, deniveleAscPortion, deniveleDescPortion);
-                    SuccesDAO.setSucces(distanceTrajet, vitesseMaxTrajet, deniveleAscTrajet, deniveleDescTrajet);
+                    SuccesDAO.setSucces((MainActivity) getActivity(),distanceTrajet, vitesseMaxTrajet, deniveleAscTrajet, deniveleDescTrajet);
 
                     double evgSpeed = (lastSpeed + speed) / 2;
                     if (evgSpeed <= (highSpeed - lowSpeed) / 3 + lowSpeed){ lineColor = Color.GREEN; }

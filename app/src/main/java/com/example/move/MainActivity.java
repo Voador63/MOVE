@@ -1,6 +1,7 @@
 package com.example.move;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -8,7 +9,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
@@ -104,27 +108,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sendNotif(String nom){
-        Intent intent = new Intent(this, Tab3Fragment.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        createNotificationChannel();
 
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        // Create an explicit intent for Main Activity
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         List<Succes> s = Succes.find(Succes.class, "nom = ?", nom);
 
-        Notification notif = new Notification.Builder(this)
-                .setSound(soundUri)
-                .setAutoCancel(true)
-                .setVibrate(new long[]{0, 500, 110})
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel1")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Félicitation vous avez déverouillé "+s.get(0).getNom()+" !")
-                .setContentIntent(pIntent)
-                .build();
-        try{
-            nm.notify(ID_NOTIFICATION, notif);
-        }
-        catch (Exception ex){
-            Log.i("DIM", ex.getMessage());
+                .setContentTitle("Succès dévérouillé!")
+                .setContentText(s.get(0).getNom())
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                // set intent that will fire when user taps the notif
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(0, builder.build());
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "channel1";
+            String description = "CHANNEL1";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("channel1", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
+
 
 }

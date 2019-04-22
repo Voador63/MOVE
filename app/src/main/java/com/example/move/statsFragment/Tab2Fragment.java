@@ -27,16 +27,20 @@ public class Tab2Fragment extends Fragment {
         super.onResume();
 
         TextView dist = (TextView) getView().findViewById(R.id.textDistance);
-        dist.setText(Double.toString(StatsDAO.selectAll().get(0).getDist_totale())+"m");
+        double val = (double)Math.round(StatsDAO.selectAll().get(0).getDist_totale() * 100) / 100;
+        dist.setText(Double.toString(val)+"m");
 
+        val = (double)Math.round(StatsDAO.selectAll().get(0).getVitesse_max() * 100) / 100;
         TextView vit = (TextView) getView().findViewById(R.id.textVitesse);
-        vit.setText(Double.toString(StatsDAO.selectAll().get(0).getVitesse_max())+"km/h");
+        vit.setText(Double.toString(val)+"km/h");
 
+        val = (double)Math.round(StatsDAO.selectAll().get(0).getDeniv_pos() * 100) / 100;
         TextView denivPos = (TextView) getView().findViewById(R.id.textDenivPos);
-        denivPos.setText(Double.toString(StatsDAO.selectAll().get(0).getDeniv_pos())+"m");
+        denivPos.setText(Double.toString(val)+"m");
 
+        val = (double)Math.round(StatsDAO.selectAll().get(0).getDeniv_neg() * 100) / 100;
         TextView denivNeg = (TextView) getView().findViewById(R.id.textDenivNeg);
-        denivNeg.setText(Double.toString(StatsDAO.selectAll().get(0).getDeniv_neg()) + "m");
+        denivNeg.setText(Double.toString(val) + "m");
     }
 
 }
