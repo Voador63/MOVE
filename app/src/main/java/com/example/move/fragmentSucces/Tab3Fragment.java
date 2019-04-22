@@ -43,7 +43,12 @@ public class Tab3Fragment extends Fragment {
             String description = list_succes.get(i).getDescription();
             Boolean etat = list_succes.get(i).getEtat();
             dataModels.add(new SuccessDataModel(id, nom, description, etat));
+
+            //if (etat){
+            //    dataModels.get(i).
+            //}
         }
+        //dataModels.get(0).etat_succes = true;
         /*dataModels.add(new SuccessDataModel("Apple Pie", "Android 1.0", "1","September 23, 2008"));
         dataModels.add(new SuccessDataModel("Banana Bread", "Android 1.1", "2","February 9, 2009"));
         dataModels.add(new SuccessDataModel("Cupcake", "Android 1.5", "3","April 27, 2009"));

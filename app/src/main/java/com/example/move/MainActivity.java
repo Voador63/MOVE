@@ -1,10 +1,13 @@
 package com.example.move;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.move.data.Succes;
 import com.example.move.data.SuccesDAO;
@@ -16,7 +19,6 @@ import com.example.move.statsFragment.Tab2Fragment;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAB = "MainActivity";
-    private static final String LA = "AH";
 
     private static final int nb_succes = 3;
 
@@ -76,4 +78,5 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
     }
+
 }
