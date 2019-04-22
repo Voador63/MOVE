@@ -81,9 +81,9 @@ public class Tab3Fragment extends Fragment {
                 else if (description.getVisibility() == View.VISIBLE)
                     description.setVisibility(View.GONE);
 
-                Succes succes = SuccesDAO.selectAll().get(0);
-                succes.setEtat(true);
-                succes.save();
+                //Succes succes = SuccesDAO.selectAll().get(0);
+                //succes.setEtat(true);
+                //succes.save();
 
                 //Snackbar.make(view, dataModel.getId()+"\n"+dataModel.getNom()+" Description: "+dataModel.getDescription(), Snackbar.LENGTH_LONG)
                 //        .setAction("No action", null).show();
