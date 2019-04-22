@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.move.data.Stats;
+import com.example.move.data.StatsDAO;
 import com.example.move.data.Succes;
 import com.example.move.data.SuccesDAO;
 import com.example.move.fragmentSucces.SectionsPageAdapter;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Create succes DataBase with succes.xml
         Succes.deleteAll(Succes.class);
 
         String[] t_succes;
@@ -59,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 succes.save();
             }
         }
+
+        //Create Stats
+        Stats.deleteAll(Stats.class);
+        if(!StatsDAO.dejaPresent("0")){
+            Stats stats = new Stats("0",0,0,0,0);
+            stats.save();
+        }
+
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
 

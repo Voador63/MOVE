@@ -23,6 +23,28 @@ public class StatsDAO {
         return test;
     }
 
+    public static  boolean dejaPresent(String id){
+        boolean present = false;
+
+        List<Stats> test = Stats.find(Stats.class, "id = ?", id);
+        if(test.size() != 0){
+            present = true;
+        }
+
+        return present;
+    }
+
+    public static void setStats(double dist, double vit, double denivP, double denivN){
+        for (Stats stat:selectAll()){
+            stat.setDist_totale(stat.getDist_totale()+dist);
+            if (vit > stat.getVitesse_max())
+                stat.setVitesse_max(vit);
+
+            stat.setDeniv_pos(stat.getDeniv_pos()+denivP);
+            stat.setDeniv_neg(stat.getDeniv_neg()+denivN);
+        }
+    }
+
 
 
 }

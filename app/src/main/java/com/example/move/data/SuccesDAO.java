@@ -34,4 +34,10 @@ public class SuccesDAO {
         return present;
     }
 
+    public static void setSucces(double dist, double vit, double denivP, double denivN){
+        if (dist>=10){
+            List<Succes> succes = Succes.find(Succes.class, "nom = ?", "Promeneur débutant");
+            succes.get(0).setEtat(true);
+        }
+    }
 }

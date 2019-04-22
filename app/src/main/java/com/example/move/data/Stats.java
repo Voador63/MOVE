@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Stats extends SugarRecord {
 
+    private String id;
     private double dist_totale;
     private double vitesse_max;
     private double deniv_pos;
@@ -15,11 +16,16 @@ public class Stats extends SugarRecord {
     public Stats(){
     }
 
-    public Stats(double dist_totale, double vitesse_max, double deniv_pos, double deniv_neg){
+    public Stats(String id, double dist_totale, double vitesse_max, double deniv_pos, double deniv_neg){
+        setId(id);
         setDist_totale(dist_totale);
         setVitesse_max(vitesse_max);
         setDeniv_pos(deniv_pos);
         setDeniv_neg(deniv_neg);
+    }
+
+    private void setId(String id) {
+        this.id = id;
     }
 
     public void setDist_totale(double dist_totale) {
