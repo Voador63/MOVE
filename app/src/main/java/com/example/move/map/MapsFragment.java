@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.move.R;
 import com.example.move.data.Point;
+import com.example.move.data.StatsDAO;
+import com.example.move.data.SuccesDAO;
 import com.example.move.data.Trajet;
 import com.example.move.data.TrajetDAO;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -56,7 +58,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     double distancePortion;
     double vitesseMaxTrajet;
     double deniveleAscTrajet;
+    double deniveleAscPortion;
     double deniveleDescTrajet;
+    double deniveleDescPortion;
 
     boolean recording;
     private Timer timer;
@@ -100,7 +104,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     distancePortion = 0;
                     vitesseMaxTrajet = 0;
                     deniveleAscTrajet = 0;
+                    deniveleAscPortion = 0;
                     deniveleDescTrajet = 0;
+                    deniveleDescPortion = 0;
 
                     startRecordTimer();
                     recording = true;
@@ -182,15 +188,22 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     // Calcul du dénivelé ascendant dans ce trajet
                     if (altitude >= lastAltitude){
                         deniveleAscTrajet += altitude - lastAltitude;
+                        deniveleAscPortion = altitude - lastAltitude;
                     } else { // Calcul du dénivelé descendant dans ce trajet
                         deniveleDescTrajet += lastAltitude - altitude;
+                        deniveleDescPortion = lastAltitude - altitude;;
                     }
 
                     //Log.i("MONLOG", String.valueOf(distanceTrajet));
                     //Log.i("MONLOG", String.valueOf(distancePortion));
                     //Log.i("MONLOG", String.valueOf(vitesseMaxTrajet));
                     //Log.i("MONLOG", String.valueOf(deniveleAscTrajet));
+                    //Log.i("MONLOG", String.valueOf(deniveleAscPortion));
                     //Log.i("MONLOG", String.valueOf(deniveleDescTrajet));
+                    //Log.i("MONLOG", String.valueOf(deniveleDescPortion));
+
+                    StatsDAO.setStats(distancePortion, vitesseMaxTrajet, deniveleAscPortion, deniveleDescPortion);
+                    SuccesDAO.setSucces(distancePortion, vitesseMaxTrajet, deniveleAscPortion, deniveleDescPortion);
 
                     double evgSpeed = (lastSpeed + speed) / 2;
                     if (evgSpeed <= (highSpeed - lowSpeed) / 3 + lowSpeed){ lineColor = Color.GREEN; }
