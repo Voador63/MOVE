@@ -12,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.move.MainActivity;
 import com.example.move.R;
+import com.example.move.data.StatsDAO;
 import com.example.move.data.Succes;
 import com.example.move.data.SuccesDAO;
 
@@ -81,6 +83,8 @@ public class Tab3Fragment extends Fragment {
                 else if (description.getVisibility() == View.VISIBLE)
                     description.setVisibility(View.GONE);
 
+                //StatsDAO.setStats(100,20.15616516,51,561.54951);
+                //SuccesDAO.setSucces((MainActivity) getActivity(),20,0,0,0);
                 //Succes succes = SuccesDAO.selectAll().get(0);
                 //succes.setEtat(true);
                 //succes.save();
