@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAB = "MainActivity";
 
-    private static final int nb_succes = 3;
+    private static final int nb_succes = 6;
 
     private static final int ID_NOTIFICATION = 1234;
 
