@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.move.R;
 import com.example.move.data.Point;
-import com.example.move.data.PointDAO;
 import com.example.move.data.Trajet;
 import com.example.move.data.TrajetDAO;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,7 +28,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -43,6 +41,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     LatLng userPos;
     LatLng lastUserPos;
     double altitude;
+    double lastAltitude;
     double latitude;
     double longitude;
     double speed;
@@ -51,8 +50,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     float highSpeed;
     int lineColor;
     GPStracker gpsTracker;
-    Trajet trajet;
     int id_trajet;
+
+    double distanceTrajet;
+    double distancePortion;
+    double vitesseMaxTrajet;
+    double deniveleAscTrajet;
+    double deniveleDescTrajet;
 
     boolean recording;
     private Timer timer;
@@ -67,20 +71,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
-
-        altitude = 0;
-        latitude = 0;
-        longitude = 0;
-        lastSpeed = 0;
-        speed = 0;
 
         id_trajet = TrajetDAO.getLastId();
         Log.i("monLOG", String.valueOf(id_trajet));
@@ -91,12 +84,24 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         recording = false;
         timer = new Timer();
 
-        btnGetPos = (Button) view.findViewById(R.id.btnGetPos);
+        btnGetPos = view.findViewById(R.id.btnGetPos);
         btnGetPos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!recording){
                     id_trajet++;
+                    altitude = 0;
+                    lastAltitude = 0;
+                    latitude = 0;
+                    longitude = 0;
+                    lastSpeed = 0;
+                    speed = 0;
+                    distanceTrajet = 0;
+                    distancePortion = 0;
+                    vitesseMaxTrajet = 0;
+                    deniveleAscTrajet = 0;
+                    deniveleDescTrajet = 0;
+
                     startRecordTimer();
                     recording = true;
                     btnGetPos.setText(getString(R.string.stopPosbutton));
@@ -114,16 +119,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
     }
 
-    //To stop timer
-    private void stopRecordTimer(){
-        if(timer != null){
-            lastLoc = null;
-            timer.cancel();
-            timer.purge();
-        }
-    }
-
-    //To start timer
+    // Départ de l'enregistrement
     private void startRecordTimer(){
         timer = new Timer();
         recordTask = new TimerTask() {
@@ -138,12 +134,22 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         timer.schedule(recordTask, 0, 1000);
     }
 
+    // Arrêt de l'enregistrement
+    private void stopRecordTimer(){
+        if(timer != null){
+            lastLoc = null;
+            timer.cancel();
+            timer.purge();
+        }
+    }
+
     public void recordNewPoint(){
         if (gpsTracker == null) {
             gpsTracker = new GPStracker(getActivity().getApplicationContext());
         }
         loc = gpsTracker.getLocation();
         if(loc != null){
+            lastAltitude = altitude;
             altitude = loc.getAltitude();
             latitude = loc.getLatitude();
             longitude = loc.getLongitude();
@@ -160,12 +166,33 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
             if(lastLoc != null && loc.getTime() != lastLoc.getTime()) { // Cas lastLoc et loc initialises
                 userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
-                //mMap.addMarker(new MarkerOptions().position(userPos).title("User pos"));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(userPos));
 
                 if (lastUserPos != null) {
-                    double evgSpeed = (lastSpeed + speed) / 2;
+                    // Calcul de la distance parcourue dans ce trajet
+                    float[] results = new  float[1];
+                    Location.distanceBetween(lastUserPos.latitude, lastUserPos.longitude, userPos.latitude, userPos.longitude, results);
+                    distanceTrajet += results[0];
+                    distancePortion = results[0];
 
+                    // Calcul de la vitesse max atteinte dans ce trajet
+                    if (speed > vitesseMaxTrajet){
+                        vitesseMaxTrajet = speed;
+                    }
+
+                    // Calcul du dénivelé ascendant dans ce trajet
+                    if (altitude >= lastAltitude){
+                        deniveleAscTrajet += altitude - lastAltitude;
+                    } else { // Calcul du dénivelé descendant dans ce trajet
+                        deniveleDescTrajet += lastAltitude - altitude;
+                    }
+
+                    //Log.i("MONLOG", String.valueOf(distanceTrajet));
+                    //Log.i("MONLOG", String.valueOf(distancePortion));
+                    //Log.i("MONLOG", String.valueOf(vitesseMaxTrajet));
+                    //Log.i("MONLOG", String.valueOf(deniveleAscTrajet));
+                    //Log.i("MONLOG", String.valueOf(deniveleDescTrajet));
+
+                    double evgSpeed = (lastSpeed + speed) / 2;
                     if (evgSpeed <= (highSpeed - lowSpeed) / 3 + lowSpeed){ lineColor = Color.GREEN; }
                     else if (evgSpeed >= ((highSpeed - lowSpeed) / (3/2) + lowSpeed)){ lineColor = Color.RED; }
                     else { lineColor = Color.YELLOW; }
