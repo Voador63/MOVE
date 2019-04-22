@@ -42,6 +42,15 @@ public class SuccesDAO {
             List<Succes> listSucces = Succes.find(Succes.class, "nom = ?", "Promeneur débutant");
             Succes succes = listSucces.get(0);
             succes.setEtat(true);
+
+            try {
+                MainActivity.class.newInstance().sendNotif(succes.getNom());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 }
