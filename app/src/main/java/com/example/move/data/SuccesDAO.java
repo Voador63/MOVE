@@ -1,8 +1,9 @@
 package com.example.move.data;
 
 import android.view.View;
+
 import com.example.move.MainActivity;
-import com.example.move.fragmentSucces.CustomAdapter;
+
 import java.util.List;
 
 public class SuccesDAO {
@@ -41,6 +42,14 @@ public class SuccesDAO {
         if (dist>=10){
             List<Succes> succes = Succes.find(Succes.class, "nom = ?", "Promeneur débutant");
             succes.get(0).setEtat(true);
+
+            try {
+                MainActivity.class.newInstance().sendNotif(succes.get(0).getNom());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

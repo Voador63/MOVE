@@ -42,8 +42,6 @@ public class StatsDAO {
 
             stat.setDeniv_pos(stat.getDeniv_pos()+denivP);
             stat.setDeniv_neg(stat.getDeniv_neg()+denivN);
-
-            stat.save();
         }
     }
 

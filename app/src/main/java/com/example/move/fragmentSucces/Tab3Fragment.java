@@ -3,7 +3,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,10 +80,6 @@ public class Tab3Fragment extends Fragment {
                 else if (description.getVisibility() == View.VISIBLE)
                     description.setVisibility(View.GONE);
 
-                //Succes succes = SuccesDAO.selectAll().get(0);
-                //succes.setEtat(true);
-                //succes.save();
-
                 //Snackbar.make(view, dataModel.getId()+"\n"+dataModel.getNom()+" Description: "+dataModel.getDescription(), Snackbar.LENGTH_LONG)
                 //        .setAction("No action", null).show();
             }
@@ -113,12 +108,5 @@ public class Tab3Fragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        adapter.notifyDataSetChanged();
     }
 }
