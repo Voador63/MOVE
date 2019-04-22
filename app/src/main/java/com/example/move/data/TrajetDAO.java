@@ -12,7 +12,7 @@ public class TrajetDAO {
     }
 
     public static Trajet selectTrajetById(int id){
-        List<Point> points = Trajet.find(Point.class, "id_trajet = ?", String.valueOf(id));
+        List<Point> points = Trajet.find(Point.class, "idtrajet = ?", String.valueOf(id));
         Trajet trajet = new Trajet(points);
 
         return trajet;

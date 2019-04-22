@@ -67,6 +67,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
@@ -112,6 +117,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     //To stop timer
     private void stopRecordTimer(){
         if(timer != null){
+            lastLoc = null;
             timer.cancel();
             timer.purge();
         }
@@ -149,8 +155,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             Point point = new Point(id_trajet, altitude, latitude, longitude, speed, lastSpeed);
             point.save();
 
-            Log.i("monLOG", String.valueOf(PointDAO.getNbPoint()-1));
-            Log.i("monLOG", String.valueOf(PointDAO.selectAll().get(PointDAO.getNbPoint()-1).getAltitude()));
+            //Log.i("monLOG", String.valueOf(PointDAO.getNbPoint()-1));
+            //Log.i("monLOG", String.valueOf(PointDAO.selectAll().get(PointDAO.getNbPoint()-1).getAltitude()));
 
             if(lastLoc != null && loc.getTime() != lastLoc.getTime()) { // Cas lastLoc et loc initialises
                 userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
@@ -174,8 +180,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
             } else if (lastLoc == null && loc != null){ // Cas juste loc initialise
                 userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
-                mMap.addMarker(new MarkerOptions().position(userPos).title("Point de départ"));
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 17) );
+                mMap.addMarker(new MarkerOptions().position(userPos).title("Point de départ courant"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 19) );
             }
             lastLoc = loc;
             lastUserPos = userPos;
@@ -203,7 +209,42 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             gpsTracker = new GPStracker(getActivity().getApplicationContext());
             loc = gpsTracker.getLocation();
             userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userPos, 17) );
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(userPos) );
+        }
+
+        Trajet t;
+        List<Point> listePoints;
+        int nbTrajets = TrajetDAO.getLastId();
+        for(int i = 1; i <= nbTrajets; ++i){
+            t = TrajetDAO.selectTrajetById(i);
+            listePoints = t.getTrajet();
+
+            for(int j = 0; j < listePoints.size(); ++j){
+                altitude = listePoints.get(j).getAltitude();
+                latitude = listePoints.get(j).getLatitude();
+                longitude = listePoints.get(j).getLongitude();
+                lastSpeed = listePoints.get(j).getLast_vitesse();
+                speed = listePoints.get(j).getVitesse();
+
+                if (j > 0){
+                    userPos = new LatLng(listePoints.get(j).getLatitude(), listePoints.get(j).getLongitude());
+                    lastUserPos = new LatLng(listePoints.get(j-1).getLatitude(), listePoints.get(j-1).getLongitude());
+                    double evgSpeed = (lastSpeed + speed) / 2;
+                    if (evgSpeed <= (highSpeed - lowSpeed) / 3 + lowSpeed){ lineColor = Color.GREEN; }
+                    else if (evgSpeed >= ((highSpeed - lowSpeed) / (3/2) + lowSpeed)){ lineColor = Color.RED; }
+                    else { lineColor = Color.YELLOW; }
+                    mMap.addPolyline(
+                            new PolylineOptions()
+                                    .add(userPos)
+                                    .add(lastUserPos)
+                                    .width(8f)
+                                    .color(lineColor)
+                    );
+                } else {
+                    userPos = new LatLng(listePoints.get(j).getLatitude(), listePoints.get(j).getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(userPos).title("Point départ " + i));
+                }
+            }
         }
     }
 }
