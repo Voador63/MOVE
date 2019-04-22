@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Create Stats
-        Stats.deleteAll(Stats.class);
+        //Stats.deleteAll(Stats.class);
         if(!StatsDAO.dejaPresent("0")){
             Stats stats = new Stats("0",0,0,0,0);
             stats.save();
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
 
         // Create an explicit intent for Main Activity
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Tab3Fragment.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 

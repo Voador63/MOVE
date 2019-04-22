@@ -47,7 +47,54 @@ public class SuccesDAO {
             succes.setEtat(true);
             succes.save();
             activity.sendNotif(succes.getNom());
+        }
 
+        listSucces = Succes.find(Succes.class, "nom = ?", "Alpiniste en devenir");
+        succes = listSucces.get(0);
+        if (denivP>=10 && !succes.getEtat()){
+            succes.setEtat(true);
+            succes.save();
+            activity.sendNotif(succes.getNom());
+        }
+
+        listSucces = Succes.find(Succes.class, "nom = ?", "Coureur débutant");
+        succes = listSucces.get(0);
+        if (vit>=15 && !succes.getEtat()){
+            succes.setEtat(true);
+            succes.save();
+            activity.sendNotif(succes.getNom());
+        }
+
+        listSucces = Succes.find(Succes.class, "nom = ?", "");
+        succes = listSucces.get(0);
+        if (denivN>=10 && !succes.getEtat()){
+            succes.setEtat(true);
+            succes.save();
+            activity.sendNotif(succes.getNom());
+        }
+
+        listSucces = Succes.find(Succes.class, "nom = ?", "Descendeur débutant");
+        succes = listSucces.get(0);
+        if (denivN>=10 && !succes.getEtat()){
+            succes.setEtat(true);
+            succes.save();
+            activity.sendNotif(succes.getNom());
+        }
+
+        listSucces = Succes.find(Succes.class, "nom = ?", "Promeneur régulier");
+        succes = listSucces.get(0);
+        if (dist>=100 && !succes.getEtat()){
+            succes.setEtat(true);
+            succes.save();
+            activity.sendNotif(succes.getNom());
+        }
+
+        listSucces = Succes.find(Succes.class, "nom = ?", "Promeneur confirmé");
+        succes = listSucces.get(0);
+        if (denivN>=1000 && !succes.getEtat()){
+            succes.setEtat(true);
+            succes.save();
+            activity.sendNotif(succes.getNom());
         }
     }
 }

@@ -19,4 +19,22 @@
         <item>Atteindre une vitesse de 15km/h.</item>
     </string-array>
 
+    <string-array name="succes4">
+        <item>4</item>
+        <item>Descendeur débutant</item>
+        <item>Descendre un dénivelé de 10m.</item>
+    </string-array>
+
+    <string-array name="succes5">
+        <item>5</item>
+        <item>Promeneur régulier</item>
+        <item>Parcourir une distance de 100m.</item>
+    </string-array>
+
+    <string-array name="succes6">
+        <item>6</item>
+        <item>Promeneur confirmé</item>
+        <item>Parcourir une distance d'1km.</item>
+    </string-array>
+
 </resources>
