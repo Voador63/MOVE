@@ -19,21 +19,24 @@ public class Tab2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.tab2_fragment,container,false);
+        return view;
+    }
 
-        TextView dist = (TextView) view.findViewById(R.id.textDistance);
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        TextView dist = (TextView) getView().findViewById(R.id.textDistance);
         dist.setText(Double.toString(StatsDAO.selectAll().get(0).getDist_totale())+"m");
 
-        TextView vit = (TextView) view.findViewById(R.id.textVitesse);
+        TextView vit = (TextView) getView().findViewById(R.id.textVitesse);
         vit.setText(Double.toString(StatsDAO.selectAll().get(0).getVitesse_max())+"km/h");
 
-        TextView denivPos = (TextView) view.findViewById(R.id.textDenivPos);
+        TextView denivPos = (TextView) getView().findViewById(R.id.textDenivPos);
         denivPos.setText(Double.toString(StatsDAO.selectAll().get(0).getDeniv_pos())+"m");
 
-        TextView denivNeg = (TextView) view.findViewById(R.id.textDenivNeg);
+        TextView denivNeg = (TextView) getView().findViewById(R.id.textDenivNeg);
         denivNeg.setText(Double.toString(StatsDAO.selectAll().get(0).getDeniv_neg()) + "m");
-
-
-        return view;
     }
 
 }
