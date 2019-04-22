@@ -1,13 +1,20 @@
 package com.example.move;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.move.data.Stats;
 import com.example.move.data.StatsDAO;
@@ -18,23 +25,29 @@ import com.example.move.fragmentSucces.Tab3Fragment;
 import com.example.move.map.MapsFragment;
 import com.example.move.statsFragment.Tab2Fragment;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAB = "MainActivity";
 
     private static final int nb_succes = 3;
 
+    private static final int ID_NOTIFICATION = 1234;
 
     private SectionsPageAdapter mSectionsPageAdapter;
 
     private ViewPager mViewPager;
 
+    private NotificationManager nm;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         //Create succes DataBase with succes.xml
         Succes.deleteAll(Succes.class);
@@ -88,6 +101,30 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new Tab3Fragment(), getResources().getString(R.string.fragment3));
         viewPager.setAdapter(adapter);
 
+    }
+
+    public void sendNotif(String nom){
+        Intent intent = new Intent(this, Tab3Fragment.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        List<Succes> s = Succes.find(Succes.class, "nom = ?", nom);
+
+        Notification notif = new Notification.Builder(this)
+                .setSound(soundUri)
+                .setAutoCancel(true)
+                .setVibrate(new long[]{0, 500, 110})
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Félicitation vous avez déverouillé "+s.get(0).getNom()+" !")
+                .setContentIntent(pIntent)
+                .build();
+        try{
+            nm.notify(ID_NOTIFICATION, notif);
+        }
+        catch (Exception ex){
+            Log.i("DIM", ex.getMessage());
+        }
     }
 
 }
