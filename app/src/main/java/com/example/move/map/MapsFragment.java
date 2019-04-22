@@ -203,7 +203,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                     //Log.i("MONLOG", String.valueOf(deniveleDescPortion));
 
                     StatsDAO.setStats(distancePortion, vitesseMaxTrajet, deniveleAscPortion, deniveleDescPortion);
-                    SuccesDAO.setSucces(distancePortion, vitesseMaxTrajet, deniveleAscPortion, deniveleDescPortion);
+                    SuccesDAO.setSucces(distanceTrajet, vitesseMaxTrajet, deniveleAscTrajet, deniveleDescTrajet);
 
                     double evgSpeed = (lastSpeed + speed) / 2;
                     if (evgSpeed <= (highSpeed - lowSpeed) / 3 + lowSpeed){ lineColor = Color.GREEN; }
