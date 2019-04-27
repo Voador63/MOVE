@@ -2,39 +2,41 @@
 
 <resources>
     <string-array name="succes1">
-        <item>1</item>
+        <item>promeneur_debutant</item>
         <item>Promeneur débutant</item>
         <item>Parcourir une distance de 10m.</item>
     </string-array>
 
     <string-array name="succes2">
-        <item>2</item>
-        <item>Alpiniste en devenir</item>
-        <item>Monter un dénivelé de 10m.</item>
-    </string-array>
-
-    <string-array name="succes3">
-        <item>3</item>
-        <item>Coureur débutant</item>
-        <item>Atteindre une vitesse de 15km/h.</item>
-    </string-array>
-
-    <string-array name="succes4">
-        <item>4</item>
-        <item>Descendeur débutant</item>
-        <item>Descendre un dénivelé de 10m.</item>
-    </string-array>
-
-    <string-array name="succes5">
-        <item>5</item>
+        <item>promeneur_regulier</item>
         <item>Promeneur régulier</item>
         <item>Parcourir une distance de 100m.</item>
     </string-array>
 
-    <string-array name="succes6">
-        <item>6</item>
+    <string-array name="succes3">
+        <item>promeneur_confirme</item>
         <item>Promeneur confirmé</item>
         <item>Parcourir une distance de 1km.</item>
     </string-array>
+
+    <string-array name="succes4">
+        <item>alpiniste_debutant</item>
+        <item>Alpiniste débutant</item>
+        <item>Monter un dénivelé de 10m.</item>
+    </string-array>
+
+    <string-array name="succes5">
+        <item>descendeur_debutant</item>
+        <item>Descendeur débutant</item>
+        <item>Descendre un dénivelé de 10m.</item>
+    </string-array>
+
+    <string-array name="succes6">
+        <item>coureur_debutant</item>
+        <item>Coureur débutant</item>
+        <item>Atteindre une vitesse de 15km/h.</item>
+    </string-array>
+
+
 
 </resources>
