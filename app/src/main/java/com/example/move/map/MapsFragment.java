@@ -99,6 +99,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 if(!recording){
                     LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
                     boolean isGpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    SuccesDAO.resetSuccesEtat();
                     if(isGpsEnabled) {
                         id_trajet++;
                         altitude = 0;
