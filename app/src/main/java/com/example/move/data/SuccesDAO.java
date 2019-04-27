@@ -50,7 +50,7 @@ public class SuccesDAO {
             activity.sendNotif(succes.getNom());
         }
 
-        listSucces = Succes.find(Succes.class, "nom = ?", "Alpiniste en devenir");
+        listSucces = Succes.find(Succes.class, "nom = ?", "Alpiniste débutant");
         succes = listSucces.get(0);
         if (denivP>=10 && !succes.getEtat()){
             succes.setEtat(true);

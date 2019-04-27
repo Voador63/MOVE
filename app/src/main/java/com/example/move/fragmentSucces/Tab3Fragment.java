@@ -47,25 +47,7 @@ public class Tab3Fragment extends Fragment {
             Boolean etat = list_succes.get(i).getEtat();
             String nbObt = Integer.toString(list_succes.get(i).getNbObtentions());
             dataModels.add(new SuccessDataModel(id, nom, description, etat, nbObt));
-
-            //if (etat){
-            //    dataModels.get(i).
-            //}
         }
-        //dataModels.get(0).etat_succes = true;
-        /*dataModels.add(new SuccessDataModel("Apple Pie", "Android 1.0", "1","September 23, 2008"));
-        dataModels.add(new SuccessDataModel("Banana Bread", "Android 1.1", "2","February 9, 2009"));
-        dataModels.add(new SuccessDataModel("Cupcake", "Android 1.5", "3","April 27, 2009"));
-        dataModels.add(new SuccessDataModel("Donut","Android 1.6","4","September 15, 2009"));
-        dataModels.add(new SuccessDataModel("Eclair", "Android 2.0", "5","October 26, 2009"));
-        dataModels.add(new SuccessDataModel("Froyo", "Android 2.2", "8","May 20, 2010"));
-        dataModels.add(new SuccessDataModel("Gingerbread", "Android 2.3", "9","December 6, 2010"));
-        dataModels.add(new SuccessDataModel("Honeycomb","Android 3.0","11","February 22, 2011"));
-        dataModels.add(new SuccessDataModel("Ice Cream Sandwich", "Android 4.0", "14","October 18, 2011"));
-        dataModels.add(new SuccessDataModel("Jelly Bean", "Android 4.2", "16","July 9, 2012"));
-        dataModels.add(new SuccessDataModel("Kitkat", "Android 4.4", "19","October 31, 2013"));
-        dataModels.add(new SuccessDataModel("Lollipop","Android 5.0","21","November 12, 2014"));
-        dataModels.add(new SuccessDataModel("Marshmallow", "Android 6.0", "23","October 5, 2015"));*/
 
         adapter= new CustomAdapter(dataModels,getActivity().getApplicationContext());
 
@@ -83,27 +65,11 @@ public class Tab3Fragment extends Fragment {
 
                 else if (description.getVisibility() == View.VISIBLE)
                     description.setVisibility(View.GONE);
-
-                //StatsDAO.setStats(100,20.15616516,51,561.54951);
-                //SuccesDAO.setSucces((MainActivity) getActivity(),20,0,0,0);
-                //Succes succes = SuccesDAO.selectAll().get(0);
-                //succes.setEtat(true);
-                //succes.save();
-
-                //Snackbar.make(view, dataModel.getId()+"\n"+dataModel.getNom()+" Description: "+dataModel.getDescription(), Snackbar.LENGTH_LONG)
-                //        .setAction("No action", null).show();
             }
         });
 
         return view;
     }
-
-    //@Override
-    //public boolean onCreateOptionsMenu(Menu menu) {
-    //    // Inflate the menu; this adds items to the action bar if it is present.
-    //    getMenuInflater().inflate(R.menu.menu_main, menu);
-    //    return true;
-    //}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         //Create succes DataBase with succes.xml
-        //Succes.deleteAll(Succes.class);
+        Succes.deleteAll(Succes.class);
 
         String[] t_succes;
         int idSucces;
