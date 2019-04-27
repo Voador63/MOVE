@@ -84,7 +84,7 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             result.startAnimation(animation);
             lastPosition = position;
 
-            viewHolder.image.setTag(position);
+            viewHolder.image.setImageResource(dataModel.getId());
             viewHolder.txtNom.setText(dataModel.getNom());
             viewHolder.txtDescription.setText(dataModel.getDescription());
             //viewHolder.info.setOnClickListener(this);
