@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             titreSucces = t_succes[1];
             descritptionSucces = t_succes[2];
 
-            Succes succes = new Succes(idSucces,titreSucces,descritptionSucces,false);
+            Succes succes = new Succes(idSucces,titreSucces,descritptionSucces,false,0);
 
             if(!SuccesDAO.dejaPresent(titreSucces)){
                 succes.save();

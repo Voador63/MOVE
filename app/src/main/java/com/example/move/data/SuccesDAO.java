@@ -45,14 +45,16 @@ public class SuccesDAO {
         Succes succes = listSucces.get(0);
         if (dist>=10 && !succes.getEtat()){
             succes.setEtat(true);
+            succes.setNbObtentions(succes.getNbObtentions()+1);
             succes.save();
             activity.sendNotif(succes.getNom());
         }
 
-        listSucces = Succes.find(Succes.class, "nom = ?", "Alpiniste en devenir");
+        listSucces = Succes.find(Succes.class, "nom = ?", "Alpiniste débutant");
         succes = listSucces.get(0);
         if (denivP>=10 && !succes.getEtat()){
             succes.setEtat(true);
+            succes.setNbObtentions(succes.getNbObtentions()+1);
             succes.save();
             activity.sendNotif(succes.getNom());
         }
@@ -61,6 +63,7 @@ public class SuccesDAO {
         succes = listSucces.get(0);
         if (vit>=15 && !succes.getEtat()){
             succes.setEtat(true);
+            succes.setNbObtentions(succes.getNbObtentions()+1);
             succes.save();
             activity.sendNotif(succes.getNom());
         }
@@ -69,6 +72,7 @@ public class SuccesDAO {
         succes = listSucces.get(0);
         if (denivN>=10 && !succes.getEtat()){
             succes.setEtat(true);
+            succes.setNbObtentions(succes.getNbObtentions()+1);
             succes.save();
             activity.sendNotif(succes.getNom());
         }
@@ -77,6 +81,7 @@ public class SuccesDAO {
         succes = listSucces.get(0);
         if (dist>=100 && !succes.getEtat()){
             succes.setEtat(true);
+            succes.setNbObtentions(succes.getNbObtentions()+1);
             succes.save();
             activity.sendNotif(succes.getNom());
         }
@@ -85,8 +90,17 @@ public class SuccesDAO {
         succes = listSucces.get(0);
         if (dist>=1000 && !succes.getEtat()){
             succes.setEtat(true);
+            succes.setNbObtentions(succes.getNbObtentions()+1);
             succes.save();
             activity.sendNotif(succes.getNom());
+        }
+    }
+
+    public static void resetSuccesEtat(){
+        List<Succes> listSucces = selectAll();
+        for(Succes succes : listSucces){
+            succes.setEtat(false);
+            succes.save();
         }
     }
 }

@@ -8,17 +8,19 @@ public class Succes extends SugarRecord {
     private String nom;
     private String description;
     private boolean etat;
+    private int nbObtentions;
 
     /* SUGARORM : OBLIGATOIRE */
     public Succes(){
     }
 
-    public Succes(int id_succes, String nom, String description, boolean etat){
+    public Succes(int id_succes, String nom, String description, boolean etat, int pnbObtentions){
 
         setId_succes(id_succes);
         setNom(nom);
         setDescription(description);
         setEtat(etat);
+        setNbObtentions(pnbObtentions);
     }
 
     public void setId_succes(int id_succes) {
@@ -53,5 +55,11 @@ public class Succes extends SugarRecord {
         return this.etat;
     }
 
+    public void setNbObtentions(int p_nbObtentions) {
+        this.nbObtentions = p_nbObtentions;
+    }
 
+    public int getNbObtentions() {
+        return nbObtentions;
+    }
 }
