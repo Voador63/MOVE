@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     getIdentifier("succes"+noSucces, "array", this.getPackageName());
             t_succes = getResources().getStringArray(idArray);
 
-            idSucces = Integer.parseInt(t_succes[0]);
+            idSucces = getResources().getIdentifier(t_succes[0],"mipmap",getPackageName());
             titreSucces = t_succes[1];
             descritptionSucces = t_succes[2];
 
