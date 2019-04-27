@@ -1,9 +1,11 @@
 package com.example.move.map;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -93,26 +95,33 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         btnGetPos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!recording){
-                    id_trajet++;
-                    altitude = 0;
-                    lastAltitude = 0;
-                    latitude = 0;
-                    longitude = 0;
-                    lastSpeed = 0;
-                    speed = 0;
-                    distanceTrajet = 0;
-                    distancePortion = 0;
-                    vitesseMaxTrajet = 0;
-                    deniveleAscTrajet = 0;
-                    deniveleAscPortion = 0;
-                    deniveleDescTrajet = 0;
-                    deniveleDescPortion = 0;
 
-                    startRecordTimer();
-                    recording = true;
-                    btnGetPos.setText(getString(R.string.stopPosbutton));
-                    Toast.makeText(getActivity().getApplicationContext(),"RECORDING", Toast.LENGTH_LONG).show();
+                if(!recording){
+                    LocationManager lm = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+                    boolean isGpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    if(isGpsEnabled) {
+                        id_trajet++;
+                        altitude = 0;
+                        lastAltitude = 0;
+                        latitude = 0;
+                        longitude = 0;
+                        lastSpeed = 0;
+                        speed = 0;
+                        distanceTrajet = 0;
+                        distancePortion = 0;
+                        vitesseMaxTrajet = 0;
+                        deniveleAscTrajet = 0;
+                        deniveleAscPortion = 0;
+                        deniveleDescTrajet = 0;
+                        deniveleDescPortion = 0;
+
+                        startRecordTimer();
+                        recording = true;
+                        btnGetPos.setText(getString(R.string.stopPosbutton));
+                        Toast.makeText(getActivity().getApplicationContext(), "RECORDING", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getContext(),"Activer GPS pour continuer", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     stopRecordTimer();
                     recording = false;
@@ -249,8 +258,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             mMap.setMyLocationEnabled(true);
             gpsTracker = new GPStracker(getActivity().getApplicationContext());
             loc = gpsTracker.getLocation();
-            userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(userPos) );
+            if(loc != null){
+                userPos = new LatLng(loc.getLatitude(), loc.getLongitude());
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(userPos) );
+            }
         }
 
         Trajet t;

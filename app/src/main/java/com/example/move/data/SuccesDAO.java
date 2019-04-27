@@ -65,14 +65,6 @@ public class SuccesDAO {
             activity.sendNotif(succes.getNom());
         }
 
-        listSucces = Succes.find(Succes.class, "nom = ?", "");
-        succes = listSucces.get(0);
-        if (denivN>=10 && !succes.getEtat()){
-            succes.setEtat(true);
-            succes.save();
-            activity.sendNotif(succes.getNom());
-        }
-
         listSucces = Succes.find(Succes.class, "nom = ?", "Descendeur débutant");
         succes = listSucces.get(0);
         if (denivN>=10 && !succes.getEtat()){
@@ -91,7 +83,7 @@ public class SuccesDAO {
 
         listSucces = Succes.find(Succes.class, "nom = ?", "Promeneur confirmé");
         succes = listSucces.get(0);
-        if (denivN>=1000 && !succes.getEtat()){
+        if (dist>=1000 && !succes.getEtat()){
             succes.setEtat(true);
             succes.save();
             activity.sendNotif(succes.getNom());
