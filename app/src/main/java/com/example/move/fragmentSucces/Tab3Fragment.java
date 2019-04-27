@@ -45,7 +45,8 @@ public class Tab3Fragment extends Fragment {
             String nom = list_succes.get(i).getNom();
             String description = list_succes.get(i).getDescription();
             Boolean etat = list_succes.get(i).getEtat();
-            dataModels.add(new SuccessDataModel(id, nom, description, etat));
+            String nbObt = Integer.toString(list_succes.get(i).getNb_obtentions());
+            dataModels.add(new SuccessDataModel(id, nom, description, etat, nbObt));
 
             //if (etat){
             //    dataModels.get(i).

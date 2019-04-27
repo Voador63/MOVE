@@ -27,6 +27,7 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             TextView txtNom;
             TextView txtDescription;
             ImageView info;
+            TextView nbObtentions;
         }
 
         public CustomAdapter(ArrayList<SuccessDataModel> data, Context context) {
@@ -71,6 +72,7 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
                 viewHolder.txtNom = (TextView) convertView.findViewById(R.id.name);
                 viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.descript);
                 viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+                viewHolder.nbObtentions = (TextView) convertView.findViewById(R.id.nb_obt);
 
                 result=convertView;
 
@@ -89,6 +91,7 @@ public class CustomAdapter extends ArrayAdapter<SuccessDataModel> implements Vie
             viewHolder.txtDescription.setText(dataModel.getDescription());
             //viewHolder.info.setOnClickListener(this);
             viewHolder.info.setTag(position);
+            viewHolder.nbObtentions.setText(dataModel.getNb_obtentions_succes());
 
             if(dataModel.getEtat())
                 convertView.setBackground(this.getContext().getDrawable(R.color.colorPrimary));
