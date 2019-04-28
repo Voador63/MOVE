@@ -1,10 +1,7 @@
 package com.example.move.data;
 
-import android.app.Activity;
-import android.content.Context;
-import android.view.View;
 import com.example.move.MainActivity;
-import com.example.move.fragmentSucces.CustomAdapter;
+
 import java.util.List;
 
 public class SuccesDAO {

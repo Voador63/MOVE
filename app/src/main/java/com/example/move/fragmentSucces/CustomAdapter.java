@@ -1,8 +1,6 @@
 package com.example.move.fragmentSucces;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

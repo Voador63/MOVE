@@ -4,10 +4,6 @@ import java.util.List;
 
 public class PointDAO {
 
-    public void afficherPoint(Point p){
-
-    }
-
     //Retourne une liste de tous les succès
     public static List<Point> selectAll() {
         return Point.listAll(Point.class);

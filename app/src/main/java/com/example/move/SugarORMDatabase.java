@@ -7,8 +7,6 @@ import com.orm.SugarContext;
 
 public class SugarORMDatabase extends SugarApp {
 
-    private static String nomUser = "";
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -31,11 +29,4 @@ public class SugarORMDatabase extends SugarApp {
         super.onTerminate();
     }
 
-    public String getNomUser(){
-        return nomUser;
-    }
-
-    public void setNomUser(String nom){
-        this.nomUser = nom;
-    }
 }

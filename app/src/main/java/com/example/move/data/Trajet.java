@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.orm.SugarRecord;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Trajet extends SugarRecord {

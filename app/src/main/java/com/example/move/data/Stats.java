@@ -2,8 +2,6 @@ package com.example.move.data;
 
 import com.orm.SugarRecord;
 
-import java.util.List;
-
 public class Stats extends SugarRecord {
 
     private String id;

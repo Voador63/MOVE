@@ -1,7 +1,5 @@
 package com.example.move.data;
 
-import android.util.Log;
-
 import java.util.List;
 
 public class TrajetDAO {
